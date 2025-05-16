@@ -1,11 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function Header() {
-  const { data: session } = useSession()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   return (
@@ -31,28 +29,12 @@ export default function Header() {
             <Link href="/" className="hover:text-blue-600 transition-colors">
               홈
             </Link>
-            {session ? (
-              <>
-                <Link href="/profile" className="hover:text-blue-600 transition-colors">
-                  프로필
-                </Link>
-                {session.user.role === 'marketer' && (
-                  <Link href="/editor" className="hover:text-blue-600 transition-colors">
-                    글쓰기
-                  </Link>
-                )}
-                <button 
-                  onClick={() => signOut()}
-                  className="hover:text-blue-600 transition-colors"
-                >
-                  로그아웃
-                </button>
-              </>
-            ) : (
-              <Link href="/login" className="btn-primary">
-                로그인
-              </Link>
-            )}
+            <Link href="#" className="hover:text-blue-600 transition-colors">
+              소개
+            </Link>
+            <Link href="#" className="hover:text-blue-600 transition-colors">
+              뉴스
+            </Link>
           </nav>
         </div>
         
@@ -62,28 +44,12 @@ export default function Header() {
             <Link href="/" className="block hover:text-blue-600 transition-colors">
               홈
             </Link>
-            {session ? (
-              <>
-                <Link href="/profile" className="block hover:text-blue-600 transition-colors">
-                  프로필
-                </Link>
-                {session.user.role === 'marketer' && (
-                  <Link href="/editor" className="block hover:text-blue-600 transition-colors">
-                    글쓰기
-                  </Link>
-                )}
-                <button 
-                  onClick={() => signOut()}
-                  className="block hover:text-blue-600 transition-colors"
-                >
-                  로그아웃
-                </button>
-              </>
-            ) : (
-              <Link href="/login" className="block btn-primary inline-block">
-                로그인
-              </Link>
-            )}
+            <Link href="#" className="block hover:text-blue-600 transition-colors">
+              소개
+            </Link>
+            <Link href="#" className="block hover:text-blue-600 transition-colors">
+              뉴스
+            </Link>
           </nav>
         )}
       </div>
