@@ -1,6 +1,6 @@
-import FeaturedSlider from '@/components/FeaturedSlider'
-import NewsCard from '@/components/NewsCard'
-import { getLatestPosts, getFeaturedPosts } from '@/lib/wordpress'
+import FeaturedSlider from '@/components/FeaturedSlider';
+import NewsCard from '@/components/NewsCard';
+import { getLatestPosts, getFeaturedPosts } from '@/lib/wordpress';
 
 export default async function Home() {
   const featuredPosts = await getFeaturedPosts(5);
@@ -10,7 +10,9 @@ export default async function Home() {
     <div className="container-custom py-8">
       <section className="mb-12">
         <h2 className="text-3xl font-bold mb-6">인기 게시물</h2>
-        <FeaturedSlider posts={featuredPosts} />
+        <div className="bg-gray-200 h-[500px] rounded-xl flex items-center justify-center">
+          <p>슬라이더가 여기에 표시됩니다</p>
+        </div>
       </section>
       
       <section>
@@ -22,5 +24,5 @@ export default async function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
