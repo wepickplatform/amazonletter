@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: process.env.WORDPRESS_API_URL,
+  uri: process.env.WORDPRESS_API_URL || 'https://letter.wepick.kr',
 });
 
 const client = new ApolloClient({
