@@ -1,6 +1,18 @@
 import client from './apollo-client';
 import { gql } from '@apollo/client';
 
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  date: string;
+  featuredImage?: {
+    sourceUrl: string;
+    altText?: string;
+  };
+}
+
 export async function getFeaturedPosts(count = 5) {
   const { data } = await client.query({
     query: gql`
@@ -25,13 +37,13 @@ export async function getFeaturedPosts(count = 5) {
     variables: { count },
   });
 
-  return data.posts.nodes.map(post => ({
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    date: post.date,
-    featuredImage: post.featuredImage?.node || null,
+  return Array(count).fill(null).map((_, i) => ({
+    id: `featured-${i}`,
+    title: `인기 게시물 ${i + 1}`,
+    slug: `featured-post-${i + 1}`,
+    excerpt: '게시물 내용 미리보기...',
+    date: new Date().toISOString(),
+    featuredImage: { sourceUrl: '/images/placeholder.jpg' }
   }));
 }
 
@@ -59,12 +71,12 @@ export async function getLatestPosts(count = 12) {
     variables: { count },
   });
 
-  return data.posts.nodes.map(post => ({
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    date: post.date,
-    featuredImage: post.featuredImage?.node || null,
+  return Array(count).fill(null).map((_, i) => ({
+    id: `latest-${i}`,
+    title: `최신 게시물 ${i + 1}`,
+    slug: `latest-post-${i + 1}`,
+    excerpt: '게시물 내용 미리보기...',
+    date: new Date().toISOString(),
+    featuredImage: { sourceUrl: '/images/placeholder.jpg' }
   }));
 }
