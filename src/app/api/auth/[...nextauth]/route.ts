@@ -3,6 +3,11 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { gql } from '@apollo/client'
 import client from '@/lib/apollo-client'
 
+// 역할 타입 정의
+interface Role {
+  name: string;
+}
+
 const LOGIN_MUTATION = gql`
   mutation LoginUser($username: String!, $password: String!) {
     login(input: { username: $username, password: $password }) {
@@ -42,7 +47,7 @@ const handler = NextAuth({
           if (data.login.authToken) {
             // 사용자 역할 확인
             const isMarketer = data.login.user.roles.nodes.some(
-              role => role.name === 'marketer' || role.name === 'administrator'
+              (role: Role) => role.name === 'marketer' || role.name === 'administrator'
             )
 
             return {
