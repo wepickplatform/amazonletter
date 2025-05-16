@@ -1,18 +1,31 @@
-import FeaturedSlider from '@/components/FeaturedSlider';
-import NewsCard from '@/components/NewsCard';
-import { getLatestPosts, getFeaturedPosts } from '@/lib/wordpress';
+import FeaturedSlider from '@/components/FeaturedSlider'
+import NewsCard from '@/components/NewsCard'
 
-export default async function Home() {
-  const featuredPosts = await getFeaturedPosts(5);
-  const latestPosts = await getLatestPosts(12);
-  
+// 더미 데이터
+const featuredPosts = Array(5).fill(null).map((_, i) => ({
+  id: `featured-${i}`,
+  title: `인기 게시물 ${i + 1}`,
+  slug: `featured-post-${i + 1}`,
+  excerpt: '게시물 내용 미리보기...',
+  date: new Date().toISOString(),
+  featuredImage: { sourceUrl: '/images/placeholder.jpg' }
+}));
+
+const latestPosts = Array(12).fill(null).map((_, i) => ({
+  id: `latest-${i}`,
+  title: `최신 게시물 ${i + 1}`,
+  slug: `latest-post-${i + 1}`,
+  excerpt: '게시물 내용 미리보기...',
+  date: new Date().toISOString(),
+  featuredImage: { sourceUrl: '/images/placeholder.jpg' }
+}));
+
+export default function Home() {
   return (
     <div className="container-custom py-8">
       <section className="mb-12">
         <h2 className="text-3xl font-bold mb-6">인기 게시물</h2>
-        <div className="bg-gray-200 h-[500px] rounded-xl flex items-center justify-center">
-          <p>슬라이더가 여기에 표시됩니다</p>
-        </div>
+        <FeaturedSlider posts={featuredPosts} />
       </section>
       
       <section>
@@ -24,5 +37,5 @@ export default async function Home() {
         </div>
       </section>
     </div>
-  );
+  )
 }
